@@ -106,5 +106,12 @@ controller.example.com | SUCCESS => {
 
 ### Fixing and optimizations
 
-In order to fix the ```DEPRECATION WARNING```, you would need to install on all the other hosts the ```python3X``` package.
+ISSUE_1 : In order to fix the ```DEPRECATION WARNING```, you would need to install on all the other hosts the ```python3X``` package.
 
+ISSUE_2 : Hosts are not generated automatically with the ```ansible``` user, therefore the user should be added.
+
+SOLUTION: ```[vagrant@controller ~]$ ansible all -m command -a 'useradd ansible'```
+
+ISSUE_3 : Configure the ```ansible``` user ```password``` as ```redhat```.
+
+SOLUTION: 
