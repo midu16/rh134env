@@ -104,3 +104,7 @@ controller.example.com | SUCCESS => {
 }
 ```
 
+### Fixing and optimizations
+
+In order to fix the ```DEPRECATION WARNING```, you would need to install on all the other hosts the ```python3X``` package.
+
