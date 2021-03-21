@@ -25,7 +25,8 @@ config.vm.define "node2" do |node2|
     unless File.exist?(file_to_disk2)
         node2.customize ['createhd', '--filename', file_to_disk2, '--variant', 'Fixed', '--size', 2 * 1024]
       end
-
+      
+      node2.memory = "1024"
       node2.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk2]
     end
 end
@@ -42,6 +43,7 @@ config.vm.define "node3" do |node3|
         node3.customize ['createhd', '--filename', file_to_disk3, '--variant', 'Fixed', '--size', 2 * 1024]
       end
 
+      node3.memory = "1024"
       node3.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk3]
     end
 end
@@ -61,7 +63,8 @@ config.vm.define "node4" do |node4|
       unless File.exist?(file_to_disk14)
         node4.customize ['createhd', '--filename', file_to_disk14, '--variant', 'Fixed', '--size', 1 * 1024]
       end
-
+      
+      node4.memory = "1024"
       node4.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk4]
       node4.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', file_to_disk14]
     end
@@ -74,6 +77,9 @@ config.vm.define "controller" do |controller|
   controller.vm.box = "fedora/32-cloud-base"
   controller.vm.box_version = "32.20200422.0"
   controller.vm.hostname = "controller.example.com"
+  controller.vm.provider "virtualbox" do |controller|
+    controller.memory = "2048"
+  end
 end
 
 # Server 1 Configuration
@@ -82,6 +88,9 @@ config.vm.define "node1" do |node1|
   node1.vm.box_version = "32.20200422.0"
   node1.vm.hostname = "node1.example.com"
   node1.vm.network "private_network", ip: "10.10.10.201"
+  node1.vm.provider "virtualbox" do |node1|
+    node1.memory = "1024"
+  end
 end
 
 end
