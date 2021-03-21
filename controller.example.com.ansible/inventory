@@ -1,17 +1,19 @@
-[managed_nodes]
-managed_node[1:4]
+[frontend]
+haproxy
 
-[managed_node1]
-node1.example.com	ansible_host="10.10.10.201"
+[backend]
+webserver
+database
 
-[managed_node2]
-node2.example.com	ansible_host="10.10.10.202"
+[database]
+node4.example.com       ansible_host="10.10.10.204"
 
-[manged_node3]
-node3.example.com	ansible_host="10.10.10.203"
+[webserver]
+node3.example.com       ansible_host="10.10.10.203"
+node2.example.com       ansible_host="10.10.10.202"
 
-[managed_nodes4]
-node4.example.com	ansible_host="10.10.10.204"
+[proxy]
+node1.example.com       ansible_host="10.10.10.201"
 
 [controller]
 controller.example.com	ansible_host="10.10.10.200"
