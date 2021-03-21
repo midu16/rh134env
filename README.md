@@ -1,4 +1,4 @@
-# rh134env
+# rh294env
 This is a RHCE study environment built with Vagrant
 
 ### Requirements
