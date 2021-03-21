@@ -18,6 +18,7 @@ config.vm.define "node2" do |node2|
   node2.vm.box = "fedora/32-cloud-base"
   node2.vm.box_version = "32.20200422.0"
   node2.vm.hostname = "node2.example.com"
+  node2.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "always"
   node2.vm.network "private_network", ip: "10.10.10.202"
   node2.vm.provider "virtualbox" do |node2|
     node2.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 1]
@@ -35,6 +36,7 @@ config.vm.define "node3" do |node3|
   node3.vm.box = "fedora/32-cloud-base"
   node3.vm.box_version = "32.20200422.0"
   node3.vm.hostname = "node3.example.com"
+  node3.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "always"
   node3.vm.network "private_network", ip: "10.10.10.203"
   node3.vm.provider "virtualbox" do |node3|
     node3.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 1]
@@ -52,6 +54,7 @@ config.vm.define "node4" do |node4|
   node4.vm.box = "fedora/32-cloud-base"
   node4.vm.box_version = "32.20200422.0"
   node4.vm.hostname = "node4.example.com"
+  node4.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "always"
   node4.vm.network "private_network", ip: "10.10.10.204"
   node4.vm.provider "virtualbox" do |node4|
     node4.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 2]
@@ -77,6 +80,7 @@ config.vm.define "controller" do |controller|
   controller.vm.box = "fedora/32-cloud-base"
   controller.vm.box_version = "32.20200422.0"
   controller.vm.hostname = "controller.example.com"
+  controller.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "always"
   controller.vm.provider "virtualbox" do |controller|
     controller.memory = "2048"
   end
@@ -87,6 +91,7 @@ config.vm.define "node1" do |node1|
   node1.vm.box = "fedora/32-cloud-base"
   node1.vm.box_version = "32.20200422.0"
   node1.vm.hostname = "node1.example.com"
+  node1.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "always"
   node1.vm.network "private_network", ip: "10.10.10.201"
   node1.vm.provider "virtualbox" do |node1|
     node1.memory = "1024"
