@@ -1,0 +1,32 @@
+---
+- name: Configures the SSHD daemon
+  hosts: all
+  gather_facts: yes
+  vars:
+    banner_path: /etc/motd
+    sshd_daemon_path: /etc/ssh/sshd_config
+  tasks:
+    - name: banner is set to /etc/motd
+      replace:
+          path: "{{sshd_daemon_path}}"
+          regexp: '#Banner none'
+          replace: 'Banner {{banner_path}}'
+          backup: yes
+      notify: sshd restart
+    - name: set the #X11Forwarding
+      replace:
+          path: "{{sshd_daemon_path}}"
+          regexp: '#X11Forwarding no'
+          replace: 'X11Forwarding no'
+      notify: sshd restart
+    - name: set the #MaxAuthTries
+      replace:
+          path: "{{sshd_daemon_path}}"
+          regexp: '#MaxAuthTries 6'
+          replace: 'MaxAuthTries 3'
+      notify: sshd restart
+  handlers:
+    - name: sshd restart
+      service:
+         name: sshd
+         state: restarted 

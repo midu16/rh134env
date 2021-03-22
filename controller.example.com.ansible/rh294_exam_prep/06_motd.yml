@@ -1,0 +1,62 @@
+---
+- name: File Content
+  hosts: webserver, database, proxy
+  gather_facts: yes
+  vars:
+    motd_path: '/etc/motd'
+    proxy_content: "HAProxy"
+    apache_content: "Apache"
+    mysql_content: "MySQL"
+  tasks:
+    - name: "check if the {{motd_path}}"
+      stat:
+        path: "{{motd_path}}"
+      register: p
+    - name: debug of the p
+      debug:
+        msg: "{{p.stat.exists}}"
+    - name: debug of the p if not exists
+      debug:
+        msg: "{{not p.stat.exists}}"
+    - name: "debug of the inventory_hostname"
+      debug:
+        var: inventory_hostname in groups['database']
+    - name: "create the {{motd_path}}"
+      file:
+        path: "{{motd_path}}"
+        state: touch
+        mode: 0775
+        group: root
+        owner: root
+      when: not p.stat.exists
+    - name: "replace the {{motd_path}} for webserver group" 
+      copy:
+        content: Welcome to Apache server
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: 0775
+      when: "inventory_hostname in groups['webserver']"
+      notify: sshd restart
+    - name: "replace the {{motd_path}} for proxy group"
+      copy:
+        content: Welcome to Proxy server
+        dest: /etc/motd
+        owner: root
+        group: root
+      when: "inventory_hostname in groups['proxy']"
+      notify: sshd restart
+    - name: "replace the {{motd_path}} for database groyp"
+      copy:
+        content: Welcome to MySQL server
+        dest: /etc/motd
+        owner: root
+        group: root
+      when: "inventory_hostname in groups['database']"
+      notify: sshd restart
+  handlers:
+    - name: sshd restart
+      service:
+        name: sshd
+        state: restarted   
+
